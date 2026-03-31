@@ -160,6 +160,20 @@ void escrever_cabecalho(FILE *fp, Cabecalho cab) {
     fwrite(buffer, 1, 17, fp);
 }
 
+void escrever_cabecalho(FILE *fp, Cabecalho *cab) {
+
+    /*cab->status = '1'; 
+    cab->topo = -1;
+    cab->proxRRN = 0;
+    cab->nroEstacoes = 0;
+    cab->nroParesEstacao = 0;*/
+
+    fwrite(&cab->status, sizeof(char), 1, fp);
+    fwrite(&cab->topo, sizeof(int32_t), 1, fp);
+    fwrite(&cab->proxRRN, sizeof(int32_t), 1, fp);
+    fwrite(&cab->nroEstacoes, sizeof(int32_t), 1, fp);
+    fwrite(&cab->nroParesEstacao, sizeof(int32_t), 1, fp);
+}
 /* -------------------------------------------------------
  * @brief Serializa um RegistroEstacao em exatamente 80
  *        bytes e escreve no arquivo binário.
