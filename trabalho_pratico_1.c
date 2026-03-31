@@ -6,6 +6,7 @@ NOME: Santhiago Aguiar Afonso da Rosa
 NUSP: 14607274
 
 
+
 */
 
 
@@ -25,9 +26,9 @@ typedef struct {
         // 4 bytes proxRRN 
         int32_t proxRRN;
         //4 BYTES numero_estacoes 
-        int32_t numero_estacoes;
+        int32_t nroEstacoes;
         //numero_pares_estacoes para quantidade de pares unicos entre as estacoes
-        int32_t numero_pares_estacoes;
+        int32_t nroParesEstacao;
     } Cabecalho;
 
     typedef struct {
@@ -151,10 +152,10 @@ void escrever_cabecalho(FILE *fp, Cabecalho cab) {
     memcpy(buffer + 5,  &cab.proxRRN,               sizeof(int32_t));
 
     /* [9..12] numero_estacoes */
-    memcpy(buffer + 9,  &cab.numero_estacoes,        sizeof(int32_t));
+    memcpy(buffer + 9,  &cab.nroEstacoes,        sizeof(int32_t));
 
     /* [13..16] numero_pares_estacoes */
-    memcpy(buffer + 13, &cab.numero_pares_estacoes,  sizeof(int32_t));
+    memcpy(buffer + 13, &cab.nroParesEstacao,  sizeof(int32_t));
 
     fwrite(buffer, 1, 17, fp);
 }
@@ -272,8 +273,8 @@ void funcionalidade1(const char *nome_csv, const char *nome_bin) {
     cab.status                = '0';   /* inconsistente */
     cab.topo                  = -1;    /* sem removidos */
     cab.proxRRN               = 0;     /* primeiro RRN */
-    cab.numero_estacoes       = 0;
-    cab.numero_pares_estacoes = 0;
+    cab.nroEstacoes       = 0;
+    cab.nroParesEstacao = 0;
 
     escrever_cabecalho(fp, cab);
 
@@ -306,8 +307,8 @@ void funcionalidade1(const char *nome_csv, const char *nome_bin) {
     /* Reescreve o cabeçalho com status consistente */
     cab.status                = '1';
     cab.proxRRN               = qtd;
-    cab.numero_estacoes       = qtd;   /* ajuste conforme regra real */
-    cab.numero_pares_estacoes = qtd;   /* ajuste conforme regra real */
+    cab.nroEstacoes       = qtd;   /* ajuste conforme regra real */
+    cab.nroParesEstacao = qtd;   /* ajuste conforme regra real */
 
     rewind(fp);
     escrever_cabecalho(fp, cab);
